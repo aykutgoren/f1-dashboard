@@ -25,8 +25,8 @@ RUN pip install --upgrade pip && \
 
 # Copy application folders and files
 COPY backend/app ./app
-COPY backend/.env .
-COPY data ./data
+COPY .env .
+COPY dataset ./dataset
 
 # Expose FastAPI port
 EXPOSE 8000

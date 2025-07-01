@@ -1,16 +1,3 @@
-# Dockerfile for Vite + React + TypeScript
-FROM node:20-alpine
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-
-EXPOSE 5173
-CMD ["npm", "run", "dev"]
-
 # Use official Node.js Alpine image for smaller footprint
 FROM node:20-alpine AS builder
 
@@ -18,7 +5,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copy package manifests
-COPY package.json package-lock.json* ./
+COPY frontend/package.json frontend/package-lock.json* ./
 
 # Install dependencies
 # May be RUN npm ci for exact dependencies based on package-lock.json!

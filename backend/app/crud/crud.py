@@ -34,7 +34,7 @@ async def get_circuit_summary(db: AsyncSession) -> List[Tuple[Circuit, int, int]
             func.count(Race.race_id).label("total_races"),
         )
         .join(Race, Circuit.circuit_id == Race.circuit_id)
-        .join(sub_fastest_lap, Race.race_id == sub_fastest_lap.c.raceId)
+        .join(sub_fastest_lap, Race.race_id == sub_fastest_lap.c.race_id)
         .group_by(Circuit.circuit_id)
     )
 
@@ -82,7 +82,7 @@ async def get_driver_summary(db: AsyncSession) -> List[Tuple[Driver, int, int]]:
             ),  # Use coalesce to default total races to 0 if none found
         )
         .outerjoin(podium_subq, Driver.driver_id == podium_subq.c.driver_id)
-        .outerjoin(races_subq, Driver.driver_id == races_subq.c.driverId)
+        .outerjoin(races_subq, Driver.driver_id == races_subq.c.driver_id)
     )
 
     # Execute the query and return the result

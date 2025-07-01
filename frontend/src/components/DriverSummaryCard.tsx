@@ -35,7 +35,7 @@ export default function DriverSummaryCard() {
           </thead>
           <tbody className="text-gray-700">
             {filtered.map((driver) => (
-              <tr key={driver.driverId} className="border-b hover:bg-gray-50">
+              <tr key={driver.driver_id} className="border-b hover:bg-gray-50">
                 <td className="py-2 px-4 font-medium">
                   {driver.forename} {driver.surname}
                 </td>

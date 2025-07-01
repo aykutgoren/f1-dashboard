@@ -37,7 +37,7 @@ export default function CircuitSummaryCard() {
           </thead>
           <tbody className="text-gray-700">
             {filtered.map((item) => (
-              <tr key={item.circuitId} className="border-b hover:bg-gray-50">
+              <tr key={item.circuit_id} className="border-b hover:bg-gray-50">
                 <td className="py-2 px-4 font-medium">{item.name}</td>
                 <td className="py-2 px-4">{item.country}</td>
                 <td className="py-2 px-4">{item.fastest_lap_ms}</td>

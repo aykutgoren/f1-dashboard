@@ -43,7 +43,7 @@ def load_csv(
 
 
 # Load Circuits
-def load_circuits(path: str = "data/circuits.csv") -> pd.DataFrame:
+def load_circuits(path: str = "dataset/circuits.csv") -> pd.DataFrame:
     dtype = {
         "circuit_id": "int64",
         "circuit_ref": "string",
@@ -59,7 +59,7 @@ def load_circuits(path: str = "data/circuits.csv") -> pd.DataFrame:
 
 
 # Load Drivers
-def load_drivers(path: str = "data/drivers.csv") -> pd.DataFrame:
+def load_drivers(path: str = "dataset/drivers.csv") -> pd.DataFrame:
     dtype = {
         "driver_id": "int64",
         "driver_ref": "string",
@@ -74,7 +74,7 @@ def load_drivers(path: str = "data/drivers.csv") -> pd.DataFrame:
 
 
 # Load Races
-def load_races(path: str = "data/races.csv") -> pd.DataFrame:
+def load_races(path: str = "dataset/races.csv") -> pd.DataFrame:
     dtype = {
         "race_id": "int64",
         "year": "int64",
@@ -106,7 +106,7 @@ def load_races(path: str = "data/races.csv") -> pd.DataFrame:
 
 
 # Load Driver Standings
-def load_driver_standings(path: str = "data/driver_standings.csv") -> pd.DataFrame:
+def load_driver_standings(path: str = "dataset/driver_standings.csv") -> pd.DataFrame:
     dtype = {
         "driver_standings_id": "int64",
         "race_id": "int64",
@@ -120,7 +120,7 @@ def load_driver_standings(path: str = "data/driver_standings.csv") -> pd.DataFra
 
 
 # Load Lap Times
-def load_lap_times(path: str = "data/lap_times.csv") -> pd.DataFrame:
+def load_lap_times(path: str = "dataset/lap_times.csv") -> pd.DataFrame:
     dtype = {
         "race_id": "int64",
         "driver_id": "int64",
@@ -144,8 +144,8 @@ async def load_csv_to_db(session: AsyncSession):
     # Bulk insert Circuits
     circuits = [
         Circuit(
-            circuit_id=row["circuit_id"],
-            circuir_ref=row["circuit_ref"],
+            circuit_id=row["circuitId"],
+            circuit_ref=row["circuitRef"],
             name=row["name"],
             location=row["location"],
             country=row["country"],
@@ -161,8 +161,8 @@ async def load_csv_to_db(session: AsyncSession):
     # Bulk insert Drivers
     drivers = [
         Driver(
-            driver_id=row["driver_id"],
-            driver_ref=row["driver_ref"],
+            driver_id=row["driverId"],
+            driver_ref=row["driverRef"],
             number=row["number"] if not pd.isna(row["number"]) else None,
             code=row["code"] if not pd.isna(row["code"]) else None,
             forename=row["forename"],
@@ -178,12 +178,12 @@ async def load_csv_to_db(session: AsyncSession):
     # Bulk insert Driver Standings
     driver_standings = [
         DriverStanding(
-            driver_standings_id=row["driver_standings_id"],
-            race_id=row["race_id"],
-            driver_id=row["driver_id"],
+            driver_standings_id=row["driverStandingsId"],
+            race_id=row["raceId"],
+            driver_id=row["driverId"],
             points=row["points"],
             position=row["position"],
-            position_text=row["position_text"],
+            position_text=row["positionText"],
             wins=row["wins"],
         )
         for _, row in driver_standings_df.iterrows()
@@ -193,8 +193,8 @@ async def load_csv_to_db(session: AsyncSession):
     # Bulk insert Lap Times
     lap_times = [
         LapTime(
-            race_id=row["race_id"],
-            driver_id=row["driver_id"],
+            race_id=row["raceId"],
+            driver_id=row["driverId"],
             lap=row["lap"],
             position=row["position"],
             time=row["time"],
@@ -207,10 +207,10 @@ async def load_csv_to_db(session: AsyncSession):
     # Bulk insert Races
     races = [
         Race(
-            race_id=row["race_id"],
+            race_id=row["raceId"],
             year=row["year"],
             round=row["round"],
-            circuitId=row["circuit_id"],
+            circuit_id=row["circuitId"],
             name=row["name"],
             date=row["date"],
             time=row["time"],
