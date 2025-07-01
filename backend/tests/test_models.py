@@ -1,6 +1,8 @@
-import pytest
-from app.db.models import Circuit, Driver, Race, DriverStanding, LapTime
 from datetime import date, time
+
+import pytest
+
+from app.db.models import Circuit, Driver, Race, DriverStanding, LapTime
 
 
 @pytest.mark.unit
