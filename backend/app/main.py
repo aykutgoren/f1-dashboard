@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api import routes
+
 # Create the FastAPI application instance
 app = FastAPI(title="F1 Data API")
+app.include_router(routes.router, prefix="/api")
 
 # Allow requests from Vite dev server (React)
 origins = [
