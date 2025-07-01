@@ -1,6 +1,8 @@
-import pytest
 from datetime import date
+
+import pytest
 from pydantic import ValidationError
+
 from app.schemas.schemas import CircuitBase, DriverBase, CircuitSummary, DriverSummary
 
 
