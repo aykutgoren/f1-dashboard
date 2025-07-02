@@ -30,7 +30,7 @@ describe('DriverSummaryCard', () => {
       expect(screen.getByText(/Lewis Hamilton/)).toBeInTheDocument();
     });
 
-    // Tablo başlıklarını role ve isimle kontrol et
+    // Control table headers with role and name
     expect(screen.getByRole('columnheader', { name: /Driver/i })).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: /Podiums/i })).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: /Total Races/i })).toBeInTheDocument();
