@@ -206,11 +206,6 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 ### 🎨 Frontend
 - Built using Vite, TypeScript, and React
 
-### 🧪 Testing
-- Unit tests for models and schemas
-- Integration tests for API routes
-- Functional end-to-end testing of key endpoints
-
 ---
 
 ## 🗂️ Project Structure
@@ -277,7 +272,6 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 │   │   └── types/
 │   │       └── index.ts
 │   ├── App.tsx
-│   ├── index.css
 │   ├── main.tsx
 │   ├── Dockerfile
 │   ├── index.html
@@ -383,9 +377,9 @@ $ docker-compose up --build
 ### 🧪 Testing
 
 #### Backend
-- unit tests: schema and utility tests
-- integration tests: test database queries
-- functional tests: endpoint behavior using httpx or test client
+- Unit tests for models and schemas
+- Integration tests for API routes
+- Functional end-to-end testing of key endpoints
 
 #### Frontend
 - React jest tests
