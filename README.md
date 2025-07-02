@@ -14,7 +14,7 @@ A full-stack web application that parses, stores, and visualizes Formula 1 timin
 | Containerization | Docker + Docker Compose |
 | Schema     | Pydantic                        |
 
-
+---
 
 ## 🧠 How It Works (Technical Overview)
 
@@ -32,6 +32,8 @@ Raw data is stored in the `./dataset` directory and includes structured `.csv` f
 
 These files follow a tabular schema and are ingested using pandas Python package.
 
+---
+
 ### 2. ✅ Data Parsing & Validation
 
 Each dataset is:
@@ -48,6 +50,8 @@ class DriverBase(BaseModel):
     number: Optional[int] = None
     code: Optional[str] = None
 ```
+
+---
 
 ### 3. 🧱 ORM Models & Database Mapping
 - Validated data is inserted into a PostgreSQL 15 database using SQLAlchemy ORM.
@@ -76,6 +80,8 @@ class Circuit(Base):
 #### Data insertion uses either:
 - Direct session.bulk_save_objects([...])
 - Asynchronous ORM (via AsyncSession) for scalable ingestion
+
+---
 
 ### 4. 🌐 Backend API
 - The backend is built with FastAPI, serving as a lightweight but powerful REST API layer.
@@ -139,6 +145,8 @@ async def get_driver_summaries(db: AsyncSession = Depends(get_db_session)):
 - Fetches preprocessed summaries from the backend API using fetch() or axios
 - Displays interactive dashboards, such as Circuit and Driver summaries, enabling searching and sorting
 
+---
+
 ### 6. 🐳 Dockerized Architecture
 The full system is containerized using Docker Compose, orchestrating:
 - db: PostgreSQL with healthcheck and persistent volumes
@@ -146,11 +154,43 @@ The full system is containerized using Docker Compose, orchestrating:
 - frontend: Vite + React app from frontend/Dockerfile
 - Each service runs independently and exposes its port:
 
->### Backend: localhost:8000
->### Frontend: localhost:5173
->### DB: localhost:5432
+---
 
 Healthchecks ensure that the backend only starts when the DB is ready.
+
+---
+
+### ⚙️ Assumptions
+#### The following assumptions were made in the design and development of this application. These clarify what has been intentionally excluded from the current scope to focus on core functionality and reduce complexity for prototyping or demonstration purposes.
+#### 🖥️ Frontend
+- The frontend is designed for development use only and is served via a local dev server (e.g., Vite).
+- No production-grade frontend configuration (e.g., Nginx, CDN, HTTPS, asset minification, or caching strategy) is included.
+- The UI is not optimized for production-level performance, accessibility, or SEO.
+#### 🔐 Security & Authentication
+- No authentication (e.g., OAuth, JWT, sessions) or authorization controls are implemented.
+- The system does not enforce secure communication (e.g., HTTPS).
+- Input/output sanitization, CSRF protection, and other security hardening techniques are not comprehensively applied.
+#### 🐳 Deployment & Infrastructure
+- The project is not production-deployment ready.
+- No support is included for orchestration platforms (e.g., Kubernetes, Docker Swarm).
+- No CI/CD pipelines or automated deployment infrastructure are configured.
+- The application is designed to run in a local or single-instance environment only.
+#### 📊 Observability & Operational Concerns
+- Logging is minimal and not structured for centralized log aggregation or analysis.
+- Monitoring (e.g., Prometheus, Grafana) and alerting systems are not configured.
+- Rate limiting and throttling mechanisms are not applied on API endpoints.
+- No auditing or request tracing is in place (e.g., for tracking sensitive operations or user activity).
+- Error handling and reporting are minimal and not integrated with external systems (e.g., Sentry, ELK stack).
+#### 🧪 Testing
+- No end-to-end (E2E) or load testing frameworks are integrated.
+- There is no automated test pipeline or test coverage reporting.
+#### 🧾 Data & API
+- Assumes a local PostgreSQL database using test/demo data.
+- No persistent storage configuration (e.g., backups, replicas) is provided.
+- No API versioning or documentation beyond in-code type definitions or OpenAPI stubs (if any).
+- API security mechanisms such as API keys, tokens, or CORS whitelisting are not implemented.
+
+---
 
 ## 🚀 Features
 
@@ -207,25 +247,35 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 │   │   ├── test_loader.py
 │   │   ├── test_main.py
 │   │   ├── test_models.py
+│   │   ├── test_routes.py
 │   │   └── test_schemas.py
 │   ├── __init__.txt
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── dataset/
-│   └── (CSV files)
+│   ├── circuits.csv
+│   ├── driver_standings.csv
+│   ├── drivers.csv
+│   ├── lap_times.csv
+│   └── races.csv 
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── CircuitSummaryCard.test.tsx
 │   │   │   ├── CircuitSummaryCard.tsx
 │   │   │   ├── DriverSummaryCard.tsx
+│   │   │   ├── DriverSummaryCard.test.tsx
 │   │   │   └── SummaryCard.module.cvv
 │   │   ├── pages/
+│   │   │   ├── Dashboard.test.tsx
 │   │   │   ├── Dashboard.tsx
+│   │   │   └── Home.test.tsx
 │   │   │   └── Home.tsx
 │   │   ├── services/
+│   │   │   └── api.test.ts
 │   │   │   └── api.ts
-│   │   ├── types/
-│   │   │   └── index.ts
+│   │   └── types/
+│   │       └── index.ts
 │   ├── App.tsx
 │   ├── index.css
 │   ├── main.tsx
@@ -233,7 +283,7 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 │   ├── index.html
 │   ├── package.json
 │   ├── tsconfig.json
-│   ├── vite.config.ts
+│   └── vite.config.ts
 │──.env
 │──.gitignore
 ├── docker-compose.yml
