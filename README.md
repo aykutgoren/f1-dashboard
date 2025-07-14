@@ -278,6 +278,7 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 │   │   └── main.tsx
 │   ├── Dockerfile
 │   ├── index.html
+│   ├── package.json
 │   ├── tsconfig.json
 │   └── vite.config.ts
 │──.env
