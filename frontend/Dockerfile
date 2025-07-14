@@ -5,7 +5,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copy package manifests
-COPY package.json ./
+COPY frontend/package.json ./
 
 # Install dependencies
 # May be RUN npm ci for exact dependencies based on package-lock.json!
