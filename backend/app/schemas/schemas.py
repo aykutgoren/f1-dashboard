@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class CircuitBase(BaseModel):
@@ -15,8 +15,9 @@ class CircuitBase(BaseModel):
     alt: Optional[int] = None  # Optional for nullable fields
     url: str
 
-    class Config:
-        orm_mode = True  # Enable ORM mode to work with SQLAlchemy models
+    model_config = ConfigDict(
+        from_attributes=True
+    )  # Enable ORM mode to work with SQLAlchemy models
 
 
 class DriverBase(BaseModel):
@@ -30,8 +31,9 @@ class DriverBase(BaseModel):
     nationality: str
     url: str
 
-    class Config:
-        orm_mode = True  # Enable ORM mode to work with SQLAlchemy models
+    model_config = ConfigDict(
+        from_attributes=True
+    )  # Enable ORM mode to work with SQLAlchemy models
 
 
 class CircuitSummary(CircuitBase):
