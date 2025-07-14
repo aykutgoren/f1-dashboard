@@ -4,15 +4,15 @@ A full-stack web application that parses, stores, and visualizes Formula 1 timin
 
 ## 📦 Tech Stack
 
-| Layer      | Technology                      |
-|------------|----------------------------------|
-| Frontend   | React + TypeScript (Vite)       |
-| Backend    | FastAPI (Python 3.11)           |
-| ORM        | SQLAlchemy            |
-| Database   | PostgreSQL 15                   |
-| Testing    | `pytest`, `httpx`, `pytest-asyncio` |
-| Containerization | Docker + Docker Compose |
-| Schema     | Pydantic                        |
+| Layer      | Technology                                  |
+|------------|---------------------------------------------|
+| Frontend   | React + TypeScript (Vite)                   |
+| Backend    | FastAPI (Python 3.11)                       |
+| ORM        | SQLAlchemy                                  |
+| Database   | PostgreSQL 15                               |
+| Testing    | `pytest`, `httpx`, `pytest-asyncio`, `jest` |
+| Containerization | Docker + Docker Compose                     |
+| Schema     | Pydantic                                    |
 
 ---
 
@@ -239,11 +239,14 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 │   │   └── main.py
 │   ├── tests/
 │   │   ├── conftest.py
+│   │   ├── test_crud.py
 │   │   ├── test_loader.py
 │   │   ├── test_main.py
 │   │   ├── test_models.py
 │   │   ├── test_routes.py
-│   │   └── test_schemas.py
+│   │   ├── test_schemas.py
+│   │   ├── test_session.py
+│   │   └── test_table_creator.py
 │   ├── __init__.txt
 │   ├── Dockerfile
 │   └── requirements.txt
@@ -264,23 +267,27 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 │   │   ├── pages/
 │   │   │   ├── Dashboard.test.tsx
 │   │   │   ├── Dashboard.tsx
-│   │   │   └── Home.test.tsx
+│   │   │   ├── Home.test.tsx
 │   │   │   └── Home.tsx
 │   │   ├── services/
 │   │   │   └── api.test.ts
 │   │   │   └── api.ts
-│   │   └── types/
-│   │       └── index.ts
-│   ├── App.tsx
-│   ├── main.tsx
+│   │   ├── types/
+│   │   │    └── index.ts
+│   │   ├── App.tsx
+│   │   └── main.tsx
 │   ├── Dockerfile
 │   ├── index.html
-│   ├── package.json
 │   ├── tsconfig.json
 │   └── vite.config.ts
 │──.env
 │──.gitignore
+├── babel.config.js
 ├── docker-compose.yml
+├── jest.config.js
+├── jest-css-modules.mock.js
+├── package.json
+├── pytest.ini
 └── README.md
 ```
 
@@ -359,12 +366,14 @@ class Driver(Base):
 1. Clone the repository
 ```shell
 $ git clone https://github.com/aykutgoren/f1-dashboard.git
+```
+```shell
 $ cd formula1-dashboard
 ```
 
 2. Start the services
 ```shell
-$ docker-compose up --build
+$ docker compose up --build
 ```
 
 ### Access:
@@ -385,8 +394,12 @@ $ docker-compose up --build
 - React jest tests
 
 ### ✅ Running Tests
+! Make sure all services are up and running before running tests
 
 #### Backend Tests
+```shell
+$ pip install -r backend/requirements.txt
+```
 1-) Navigate to the root folder -> f1-dashboard
 ```shell
 $ cd f1-dashboard
@@ -412,6 +425,8 @@ $ pytest -m functional backend/tests
 #### Frontend Tests
 
 ```shell
-npm install
-npx jest
+$ npm install
+```
+```shell
+$ npx jest
 ```
