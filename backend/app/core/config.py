@@ -1,3 +1,4 @@
+from pydantic import ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -14,8 +15,7 @@ class Settings(BaseSettings):
 
     # Configuration class for Pydantic to specify how to read environment
     # variables
-    class Config:
-        env_file = ".env"
+    model_config = ConfigDict(env_file=".env")
 
 
 # Instantiate the Settings class to load the configuration

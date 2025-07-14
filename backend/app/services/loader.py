@@ -12,13 +12,13 @@ NA_VALUES = ["\\N", "NaN", "None", ""]
 # Helper function to parse date columns
 def _parse_date_column(df: pd.DataFrame, col: str) -> pd.Series:
     """Convert a column to datetime.date, returning None for invalid entries."""
-    return pd.to_datetime(df[col], errors="coerce").dt.date
+    return pd.to_datetime(df[col], format="%Y-%m-%d", errors="coerce").dt.date
 
 
 # Helper function to parse time columns
 def _parse_time_column(df: pd.DataFrame, col: str) -> pd.Series:
     """Convert a column to datetime.time."""
-    return pd.to_datetime(df[col], errors="coerce").dt.time
+    return pd.to_datetime(df[col], format="%H:%M:%S", errors="coerce").dt.time
 
 
 # General function to load CSVs with specific parsing
