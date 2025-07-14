@@ -298,6 +298,7 @@ Healthchecks ensure that the backend only starts when the DB is ready.
 - `main`: stable, review-ready code
 - `dev`: in-progress integration branch
 - `feature/*`: individual features
+- `fix/*`: bug fixes or small corrections
 - `docs/*`: documentation
 - `test/*`: test
 
